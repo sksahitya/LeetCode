@@ -1,0 +1,43 @@
+/*
+https://leetcode.com/problems/binary-search-tree-to-greater-sum-tree/
+
+Approach :
+Hint: Compute Right Root Left (Reverse Inorder) 
+1) Traverse to the right.
+2) Maintain the previous node's computed value and replace the current value as previous compunted value and current node value.
+3) Traverse to the left.
+
+*/
+
+public class GreaterSumTree {
+
+	int prevValue = 0;
+	public static void main(String[] args) {
+		
+		Node root = new Node(4);
+		root.left = new Node(1);
+		root.left.left = new Node(0);
+		root.left.right = new Node(2);
+		root.left.right.right = new Node(3);
+		
+		root.right = new Node(6);
+		root.right.left = new Node(5);
+		root.right.right = new Node(7);
+		root.right.right.right = new Node(8);
+		
+		
+	}
+	
+	public Node greaterSumTree(Node node){
+		if(node.right != null)
+			greaterSumTree(node.right);
+		
+		node.data = prevValue + node.data;
+		prevValue = node.data;
+		
+		if(node.left != null)
+			greaterSumTree(node.right);
+		
+		return node;
+	}
+}
